@@ -1,0 +1,1164 @@
+<html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Economia - SAVE FARM</title>
+    <style>
+        /* ESTILOS PRINCIPAIS */
+        :root {
+            --primary-color: #009970;
+            --secondary-color: #0085a1;
+            --accent-color: #fcbd30;
+            --geral-color: #805ad5;
+            --flush-color: #e53e3e;
+            --light-color: #f5f7fa;
+            --dark-color: #2d3748;
+            --cortex-color: #3182ce;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.4;
+            padding: 15px;
+            font-size: 10pt;
+        }
+        
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .page {
+            min-height: 287mm;
+            padding: 0;
+            margin: 0;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #007a5e);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        
+        h1 {
+            font-size: 22pt;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 11pt;
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 3px;
+        }
+        
+        .kpi-dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        
+        .kpi-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .kpi-title {
+            font-size: 9pt;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .kpi-value {
+            font-size: 20pt;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .kpi-subtitle {
+            font-size: 8pt;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .content-section {
+            padding: 20px;
+        }
+        
+        .section-title {
+            font-size: 14pt;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .economy-comparison {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .economy-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border-top: 4px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .economy-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .economy-card.seletivo {
+            border-top-color: var(--primary-color);
+            background: linear-gradient(135deg, #f0fff4, #e6fffa);
+        }
+        
+        .economy-card.verde {
+            border-top-color: var(--accent-color);
+            background: linear-gradient(135deg, #fffaf0, #fff9db);
+        }
+        
+        .economy-card.cortex {
+            border-top-color: var(--cortex-color);
+            background: linear-gradient(135deg, #f0f9ff, #e1effe);
+        }
+        
+        .economy-type {
+            font-size: 10pt;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .economy-percentage {
+            font-size: 28pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .economy-seletivo {
+            color: var(--primary-color);
+        }
+        
+        .economy-verde {
+            color: var(--accent-color);
+        }
+        
+        .economy-cortex {
+            color: var(--cortex-color);
+        }
+        
+        .economy-description {
+            font-size: 8pt;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .visual-analysis {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .analysis-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .analysis-title {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 11pt;
+        }
+        
+        .area-comparison {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 150px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+        
+        .area-bar {
+            width: 50px;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            text-align: center;
+        }
+        
+        .bar-seletivo {
+            background: linear-gradient(to top, var(--primary-color), #00b386);
+            height: 70%;
+        }
+        
+        .bar-verde {
+            background: linear-gradient(to top, var(--accent-color), #fdcc52);
+            height: 90%;
+        }
+        
+        .bar-flush {
+            background: linear-gradient(to top, var(--flush-color), #f56565);
+            height: 50%;
+        }
+        
+        .bar-cortex {
+            background: linear-gradient(to top, var(--cortex-color), #4299e1);
+            height: 10%;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            font-size: 7pt;
+            color: #4a5568;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            right: 0;
+            font-size: 8pt;
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+        
+        .distribution-legend {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 8pt;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+        
+        .legend-seletivo {
+            background: var(--primary-color);
+        }
+        
+        .legend-verde {
+            background: var(--accent-color);
+        }
+        
+        .legend-flush {
+            background: var(--flush-color);
+        }
+        
+        .legend-cortex {
+            background: var(--cortex-color);
+        }
+        
+        .cortex-highlight {
+            background: linear-gradient(135deg, #e1effe, #c3ddf9);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #bee3f8;
+        }
+        
+        .cortex-title {
+            font-size: 10pt;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .cortex-value {
+            font-size: 24pt;
+            font-weight: bold;
+            color: var(--cortex-color);
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            font-size: 8pt;
+            margin-bottom: 20px;
+        }
+        
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary-color), #0085a1);
+            color: white;
+            padding: 10px 6px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 8.5pt;
+        }
+        
+        .data-table td {
+            padding: 8px 6px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .mode-seletivo {
+            background-color: rgba(0, 153, 112, 0.08);
+        }
+        
+        .mode-verde {
+            background-color: rgba(252, 189, 48, 0.08);
+        }
+        
+        .mode-flush {
+            background-color: rgba(229, 62, 62, 0.08);
+        }
+        
+        .mode-cortex {
+            background-color: rgba(49, 130, 206, 0.08);
+        }
+        
+        .total-row {
+            background: linear-gradient(135deg, #e6fffa, #d1f7ec);
+            font-weight: bold;
+            font-size: 9pt;
+        }
+        
+        .flush-total-row {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            font-weight: bold;
+            font-size: 9pt;
+        }
+        
+        .cortex-total-row {
+            background: linear-gradient(135deg, #e1effe, #c3ddf9);
+            font-weight: bold;
+            font-size: 9pt;
+        }
+        
+        .economy-high {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .economy-medium {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .subject-section {
+            margin-bottom: 25px;
+        }
+        
+        .subject-title {
+            font-size: 12pt;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .print-button {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary-color), #007a5e);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 10pt;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .print {
+            display: none;
+        }
+        
+        /* ESTILOS PARA IMPRESSÃO */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 1.2cm;
+            }
+            
+            body {
+                font-family: 'Arial', sans-serif;
+                line-height: 1.3;
+                color: #000;
+                background: white !important;
+                font-size: 9pt;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .container {
+                width: 100%;
+                margin: 0 auto;
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+            }
+            
+            header {
+                background: #009970 !important;
+                color: white !important;
+                padding: 15px !important;
+                margin-bottom: 10px !important;
+                text-align: center;
+            }
+            
+            .print-button {
+                display: none !important;
+            }
+            
+            .print {
+                display: block !important;
+                text-align: center;
+                padding: 8px;
+                background: #2d3748;
+                color: white;
+                margin-top: 10px;
+                font-size: 8pt;
+            }
+            
+            .page {
+                page-break-after: always;
+                min-height: 287mm !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .page:last-child {
+                page-break-after: auto;
+            }
+            
+            .kpi-dashboard {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .kpi-card {
+                padding: 15px;
+            }
+            
+            .kpi-value {
+                font-size: 16pt;
+            }
+            
+            .economy-comparison {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .economy-card {
+                padding: 15px 10px;
+            }
+            
+            .economy-percentage {
+                font-size: 20pt;
+            }
+            
+            .visual-analysis {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+<style type="text/css" id="operaUserStyle"></style></head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Imprimir Relatório / Gerar PDF</button>
+    
+    <div class="container">
+        <!-- PÁGINA 1 - RESUMO EXECUTIVO -->
+        <div class="page">
+            <header>
+                <h1>RELATÓRIO DE ECONOMIA - SAVE FARM</h1>
+                <p class="subtitle">AGROMAR</p>
+                <p class="subtitle">Período: 01/09 à 07/10/2025</p>
+            </header>
+            
+            <div class="kpi-dashboard">
+                <div class="kpi-card">
+                    <div class="kpi-title">Economia Geral</div>
+                    <div class="kpi-value">92,4%</div>
+                    <div class="kpi-subtitle">Eficiência média do sistema</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Total de Hectares</div>
+                    <div class="kpi-value">2.613,9</div>
+                    <div class="kpi-subtitle">Área total trabalhada</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title">Hectares Seletivo</div>
+                    <div class="kpi-value">115,6</div>
+                    <div class="kpi-subtitle">Área com aplicação seletiva</div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Comparativo de Economia por Modo</h2>
+                
+                <div class="economy-comparison">
+                    <div class="economy-card seletivo">
+                        <div class="economy-type">Economia Seletivo</div>
+                        <div class="economy-percentage economy-seletivo">95,0%</div>
+                        <div class="economy-description">Alta eficiência no modo seletivo</div>
+                    </div>
+                    <div class="economy-card verde">
+                        <div class="economy-type">Economia Verde/Verde</div>
+                        <div class="economy-percentage economy-verde">92,4%</div>
+                        <div class="economy-description">Boa performance no modo verde</div>
+                    </div>
+                    <div class="economy-card cortex">
+                        <div class="economy-type">Economia Cortex AI</div>
+                        <div class="economy-percentage economy-cortex">59,8%</div>
+                        <div class="economy-description">Sistema de IA em desenvolvimento</div>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Análise Visual de Desempenho</h2>
+                
+                <div class="visual-analysis">
+                    <div class="analysis-card">
+                        <div class="analysis-title">Distribuição de Área por Modo de Aplicação</div>
+                        <div class="area-comparison">
+                            <div class="area-bar bar-seletivo">
+                                <div class="bar-value">775ha</div>
+                                
+                            </div>
+                            <div class="area-bar bar-verde">
+                                <div class="bar-value">1.167,6ha</div>
+                                
+                            </div>
+                            <div class="area-bar bar-flush">
+                                <div class="bar-value">656,6ha</div>
+                                
+                            </div>
+                            <div class="area-bar bar-cortex">
+                                <div class="bar-value">15,1ha</div>
+                                
+                            </div>
+                        </div>
+                        <div class="distribution-legend">
+                            <div class="legend-item">
+                                <div class="legend-color legend-seletivo"></div>
+                                <span>Seletivo (29,6%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-verde"></div>
+                                <span>Verde/Verde (44,7%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-flush"></div>
+                                <span>Flush (25,1%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-cortex"></div>
+                                <span>Cortex AI (0,6%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+                <!-- Resumo de Áreas -->
+                <div class="subject-section">
+                    <h3 class="subject-title">Resumo de Áreas por Modo</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Modo de Aplicação</th>
+                                <th>Área (Ha)</th>
+                                <th>Percentual</th>
+                                <th>Hectares Seletivo</th>
+                                <th>Economia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>1.167,6</td>
+                                <td>44,7%</td>
+                                <td>78,4</td>
+                                <td class="economy-high">92,4%</td>
+                            </tr>
+                            <tr class="mode-seletivo">
+                                <td>Seletivo</td>
+                                <td>775,0</td>
+                                <td>29,6%</td>
+                                <td>29,5</td>
+                                <td class="economy-high">95,0%</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>656,2</td>
+                                <td>25,1%</td>
+                                <td>3,1</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-cortex">
+                                <td>Cortex AI</td>
+                                <td>15,1</td>
+                                <td>0,6%</td>
+                                <td>4,6</td>
+                                <td class="economy-medium">59,8%</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>Total Geral</strong></td>
+                                <td><strong>2.613,9</strong></td>
+                                <td><strong>100%</strong></td>
+                                <td><strong>115,6</strong></td>
+                                <td class="economy-high"><strong>92,4%</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="NO-print">
+                <p></p>
+            </div>
+        </div>
+        
+        <!-- PÁGINA 2 - DADOS DETALHADOS -->
+        <div class="page">
+            <div class="content-section">
+                <h2 class="section-title">Dados Detalhados por Talhão</h2>
+                
+                <!-- Cortex AI -->
+                <div class="subject-section">
+                    <h3 class="subject-title">Cortex AI</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Modo</th>
+                                <th>Talhão</th>
+                                <th>Ha</th>
+                                <th>Ha Superfície</th>
+                                <th>Ha Seletivo</th>
+                                <th>Economia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="cortex-total-row">
+                                <td colspan="2"><strong>Cortex AI Total</strong></td>
+                                <td><strong>15,1</strong></td>
+                                <td><strong>14,9</strong></td>
+                                <td><strong>4,6</strong></td>
+                                <td class="economy-medium"><strong>59,8%</strong></td>
+                            </tr>
+                            <tr class="mode-cortex">
+                                <td>Cortex AI</td>
+                                <td>14</td>
+                                <td>15,1</td>
+                                <td>14,9</td>
+                                <td>4,6</td>
+                                <td class="economy-medium">59,8%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Flush -->
+                <div class="subject-section">
+                    <h3 class="subject-title">Flush</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Modo</th>
+                                <th>Talhão</th>
+                                <th>Ha</th>
+                                <th>Ha Superfície</th>
+                                <th>Ha Seletivo</th>
+                                <th>Economia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="flush-total-row">
+                                <td colspan="2"><strong>Flush Total</strong></td>
+                                <td><strong>656,2</strong></td>
+                                <td><strong>633,6</strong></td>
+                                <td><strong>3,1</strong></td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>2</td>
+                                <td>37,7</td>
+                                <td>36,5</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>9</td>
+                                <td>42,9</td>
+                                <td>41,5</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>10</td>
+                                <td>36,8</td>
+                                <td>35,2</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>11</td>
+                                <td>33,5</td>
+                                <td>32,2</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>12</td>
+                                <td>48,1</td>
+                                <td>47,2</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>20</td>
+                                <td>16,8</td>
+                                <td>15,8</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>21</td>
+                                <td>62,9</td>
+                                <td>60,0</td>
+                                <td>3,1</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>22</td>
+                                <td>20,0</td>
+                                <td>18,5</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>30</td>
+                                <td>313,7</td>
+                                <td>303,9</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="mode-flush">
+                                <td>Flush</td>
+                                <td>44</td>
+                                <td>43,9</td>
+                                <td>42,7</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Seletivo -->
+                <div class="subject-section">
+                    <h3 class="subject-title">Seletivo</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Modo</th>
+                                <th>Talhão</th>
+                                <th>Ha</th>
+                                <th>Ha Superfície</th>
+                                <th>Ha Seletivo</th>
+                                <th>Economia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="total-row">
+                                <td colspan="2"><strong>Seletivo Total</strong></td>
+                                <td><strong>775,0</strong></td>
+                                <td><strong>740,8</strong></td>
+                                <td><strong>29,5</strong></td>
+                                <td class="economy-high"><strong>95,0%</strong></td>
+                            </tr>
+                            <tr class="mode-seletivo">
+                                <td>Seletivo</td>
+                                <td>3</td>
+                                <td>166,0</td>
+                                <td>156,8</td>
+                                <td>5,9</td>
+                                <td class="economy-high">95,4%</td>
+                            </tr>
+                            <tr class="mode-seletivo">
+                                <td>Seletivo</td>
+                                <td>13</td>
+                                <td>192,4</td>
+                                <td>182,8</td>
+                                <td>5,1</td>
+                                <td class="economy-high">96,1%</td>
+                            </tr>
+                            <tr class="mode-seletivo">
+                                <td>Seletivo</td>
+                                <td>23</td>
+                                <td>110,2</td>
+                                <td>108,0</td>
+                                <td>6,9</td>
+                                <td class="economy-high">93,8%</td>
+                            </tr>
+                            <tr class="mode-seletivo">
+                                <td>Seletivo</td>
+                                <td>31</td>
+                                <td>70,0</td>
+                                <td>67,9</td>
+                                <td>1,4</td>
+                                <td class="economy-high">90,8%</td>
+                            </tr>
+                            <tr class="mode-seletivo">
+                                <td>Seletivo</td>
+                                <td>32</td>
+                                <td>67,7</td>
+                                <td>65,2</td>
+                                <td>1,0</td>
+                                <td class="economy-high">98,9%</td>
+                            </tr>
+                            <tr class="mode-seletivo">
+                                <td>Seletivo</td>
+                                <td>34</td>
+                                <td>168,7</td>
+                                <td>160,1</td>
+                                <td>9,2</td>
+                                <td class="economy-high">94,1%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="NO-print">
+                <p></p>
+            </div>
+        </div>
+
+        
+        <div class="page">
+            <div class="content-section">
+                
+                
+                
+                <div class="subject-section">
+                    <h3 class="subject-title">Verde/Verde</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Modo</th>
+                                <th>Talhão</th>
+                                <th>Ha</th>
+                                <th>Ha Superfície</th>
+                                <th>Ha Seletivo</th>
+                                <th>Economia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="total-row">
+                                <td colspan="2"><strong>Verde/Verde Total</strong></td>
+                                <td><strong>1.167,6</strong></td>
+                                <td><strong>1.128,9</strong></td>
+                                <td><strong>78,4</strong></td>
+                                <td class="economy-high"><strong>92,4%</strong></td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>10</td>
+                                <td>127,9</td>
+                                <td>122,4</td>
+                                <td>7,1</td>
+                                <td class="economy-high">94,4%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>12</td>
+                                <td>135,4</td>
+                                <td>131,4</td>
+                                <td>13,6</td>
+                                <td class="economy-medium">81,7%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>13</td>
+                                <td>5,2</td>
+                                <td>5,2</td>
+                                <td>0,4</td>
+                                <td class="economy-high">91,9%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>21</td>
+                                <td>117,7</td>
+                                <td>114,2</td>
+                                <td>7,4</td>
+                                <td class="economy-high">93,8%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>22</td>
+                                <td>146,9</td>
+                                <td>142,7</td>
+                                <td>5,4</td>
+                                <td class="economy-high">96,2%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>23</td>
+                                <td>20,8</td>
+                                <td>20,6</td>
+                                <td>1,3</td>
+                                <td class="economy-high">93,6%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>31</td>
+                                <td>30,6</td>
+                                <td>29,8</td>
+                                <td>2,1</td>
+                                <td class="economy-high">93,4%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>32</td>
+                                <td>30,6</td>
+                                <td>29,7</td>
+                                <td>1,3</td>
+                                <td class="economy-high">96,2%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>43</td>
+                                <td>93,3</td>
+                                <td>90,4</td>
+                                <td>12,3</td>
+                                <td class="economy-medium">87,0%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>44</td>
+                                <td>70,3</td>
+                                <td>68,1</td>
+                                <td>4,2</td>
+                                <td class="economy-high">94,2%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>49</td>
+                                <td>91,7</td>
+                                <td>87,7</td>
+                                <td>4,4</td>
+                                <td class="economy-high">93,8%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>50</td>
+                                <td>132,4</td>
+                                <td>127,1</td>
+                                <td>4,8</td>
+                                <td class="economy-high">95,8%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>51</td>
+                                <td>164,6</td>
+                                <td>159,6</td>
+                                <td>14,1</td>
+                                <td class="economy-high">92,2%</td>
+                            </tr>
+
+                            
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>10</td>
+                                <td>127,9</td>
+                                <td>122,4</td>
+                                <td>7,1</td>
+                                <td class="economy-high">94,4%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>12</td>
+                                <td>135,4</td>
+                                <td>131,4</td>
+                                <td>13,6</td>
+                                <td class="economy-medium">81,7%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>13</td>
+                                <td>5,2</td>
+                                <td>5,2</td>
+                                <td>0,4</td>
+                                <td class="economy-high">91,9%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>21</td>
+                                <td>117,7</td>
+                                <td>114,2</td>
+                                <td>7,4</td>
+                                <td class="economy-high">93,8%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>22</td>
+                                <td>146,9</td>
+                                <td>142,7</td>
+                                <td>5,4</td>
+                                <td class="economy-high">96,2%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>23</td>
+                                <td>20,8</td>
+                                <td>20,6</td>
+                                <td>1,3</td>
+                                <td class="economy-high">93,6%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>31</td>
+                                <td>30,6</td>
+                                <td>29,8</td>
+                                <td>2,1</td>
+                                <td class="economy-high">93,4%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>32</td>
+                                <td>30,6</td>
+                                <td>29,7</td>
+                                <td>1,3</td>
+                                <td class="economy-high">96,2%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>43</td>
+                                <td>93,3</td>
+                                <td>90,4</td>
+                                <td>12,3</td>
+                                <td class="economy-medium">87,0%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>44</td>
+                                <td>70,3</td>
+                                <td>68,1</td>
+                                <td>4,2</td>
+                                <td class="economy-high">94,2%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>49</td>
+                                <td>91,7</td>
+                                <td>87,7</td>
+                                <td>4,4</td>
+                                <td class="economy-high">93,8%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>50</td>
+                                <td>132,4</td>
+                                <td>127,1</td>
+                                <td>4,8</td>
+                                <td class="economy-high">95,8%</td>
+                            </tr>
+                            <tr class="mode-verde">
+                                <td>Verde/Verde</td>
+                                <td>51</td>
+                                <td>164,6</td>
+                                <td>159,6</td>
+                                <td>14,1</td>
+                                <td class="economy-high">92,2%</td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                </div>
+                
+                
+                
+            </div>
+            
+            <div class="print">
+                <p>COA BOM FUTURO | 2025</p>
+            </div>
+        </div>
+    </div>
+
+</body></html>
